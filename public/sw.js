@@ -1,9 +1,8 @@
 // Offline support: after the first visit the app opens without internet.
 // Pages are fetched fresh when online (so updates arrive); everything else is cached.
 // When you publish a big update, change the version number below.
-const CACHE = 'cosmic-explorer-v1';
+const CACHE = 'cosmic-explorer-v2';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
-const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -24,7 +23,7 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   const sameOrigin = url.origin === self.location.origin;
-  if (!sameOrigin && !FONT_HOSTS.includes(url.hostname)) return;
+  if (!sameOrigin) return;
 
   const store = (response) => {
     if (response && (response.ok || response.type === 'opaque')) {
