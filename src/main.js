@@ -288,3 +288,10 @@ async function start() {
       ui.setProgress(1);
     });
 }
+
+// Lets the app be installed and open offline (only on https, e.g. GitHub Pages).
+if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch((error) => console.warn('Offline mode unavailable:', error));
+  });
+}
