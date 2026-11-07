@@ -1,3 +1,21 @@
+/* Urdu fonts, bundled with the app (SIL Open Font License, see fonts/OFL.txt).
+   Subsetted to Arabic-script and basic Latin characters to keep them small. */
+@font-face {
+  font-family: 'Noto Nastaliq Urdu';
+  src: url('./fonts/NotoNastaliqUrdu.woff') format('woff');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  src: url('./fonts/NotoNaskhArabic.woff') format('woff');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Cosmic Explorer: a quiet interface that lets the 3D scene do the talking.
    White type, a single cool-blue accent, translucent dark glass. */
 
