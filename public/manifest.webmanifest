@@ -1,0 +1,17 @@
+{
+  "name": "کائنات کی سیر",
+  "short_name": "کائنات",
+  "description": "خلا کے بارے میں دلچسپ معلومات، تھری ڈی انداز میں",
+  "lang": "ur",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#01030a",
+  "theme_color": "#01030a",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
