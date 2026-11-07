@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#01030a" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="کائنات کی سیر: زمین، چاند، مریخ اور مشتری کا انٹرایکٹو تھری ڈی سفر۔ گھمانے کے لیے انگلی سے کھینچیں، زوم کے لیے دو انگلیاں پھیلائیں۔"
+    />
+    <title>کائنات کی سیر | Cosmic Explorer</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%231f5fb0'/%3E%3Ccircle cx='24' cy='22' r='19' fill='%238fd3ff' opacity='.55'/%3E%3C/svg%3E"
+    />
+    <!-- Urdu fonts (free, from Google Fonts). If they cannot load, the page uses the phone's own Urdu font. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="scene" aria-label="زمین، چاند، مریخ اور مشتری کا انٹرایکٹو تھری ڈی منظر"></canvas>
+
+    <div id="loader" class="loader" role="status" aria-live="polite">
+      <div class="loader__orb" aria-hidden="true"></div>
+      <p class="loader__title">کائنات کی سیر</p>
+      <p class="loader__text">کائنات تیار ہو رہی ہے</p>
+    </div>
+
+    <div id="progress" class="progress" aria-hidden="true"><span></span></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand__dot" aria-hidden="true"></span>
+        <h1 class="brand__name">کائنات کی سیر</h1>
+      </div>
+
+      <div class="tools" role="toolbar" aria-label="منظر کے کنٹرول">
+        <button id="btn-reset" class="tool" type="button" aria-label="منظر ری سیٹ کریں">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+          <span>ری سیٹ</span>
+        </button>
+
+        <button id="btn-pause" class="tool" type="button" aria-pressed="false" aria-label="حرکت روکیں">
+          <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 5v14M16 5v14" />
+          </svg>
+          <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 4.5v15l12-7.5z" />
+          </svg>
+          <span id="pause-label">روکیں</span>
+        </button>
+
+        <button id="btn-stars" class="tool" type="button" aria-pressed="true" aria-label="ستارے چھپائیں">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" />
+            <path d="M19 16v4M17 18h4" />
+            <path class="slash" d="M4 4l16 16" />
+          </svg>
+          <span>ستارے</span>
+        </button>
+      </div>
+    </header>
+
+    <footer class="bottom">
+      <section id="card" class="card" aria-label="اس دنیا کے بارے میں">
+        <button id="card-toggle" class="card__head" type="button" aria-expanded="true" aria-controls="card-body">
+          <span class="card__titles">
+            <span id="world-name" class="card__name">زمین</span>
+            <span id="world-tagline" class="card__tagline"></span>
+          </span>
+          <span class="card__chevron" aria-hidden="true"></span>
+        </button>
+
+        <div id="card-body" class="card__body">
+          <p id="world-desc" class="card__desc" aria-live="polite"></p>
+          <ul id="world-facts" class="facts"></ul>
+          <p id="world-note" class="card__note"></p>
+          <button id="btn-fact" class="fact-btn" type="button" aria-expanded="false" aria-controls="fact-box">دلچسپ بات</button>
+          <div id="fact-box" class="fact-box" hidden>
+            <p id="fact-text" class="fact-box__text"></p>
+            <button id="btn-fact-next" class="fact-box__next" type="button">اگلی بات</button>
+          </div>
+          <button id="btn-home" class="home" type="button" hidden>زمین پر واپس</button>
+        </div>
+      </section>
+
+      <nav id="selector" class="selector" aria-label="دنیا منتخب کریں">
+        <button class="chip" type="button" data-world="earth" aria-pressed="true">
+          <i class="chip__dot dot--earth" aria-hidden="true"></i><span>زمین</span>
+        </button>
+        <button class="chip" type="button" data-world="moon" aria-pressed="false">
+          <i class="chip__dot dot--moon" aria-hidden="true"></i><span>چاند</span>
+        </button>
+        <button class="chip" type="button" data-world="mars" aria-pressed="false">
+          <i class="chip__dot dot--mars" aria-hidden="true"></i><span>مریخ</span>
+        </button>
+        <button class="chip" type="button" data-world="jupiter" aria-pressed="false">
+          <i class="chip__dot dot--jupiter" aria-hidden="true"></i><span>مشتری</span>
+        </button>
+        <button class="chip" type="button" data-world="saturn" aria-pressed="false">
+          <i class="chip__dot dot--saturn" aria-hidden="true"></i><span>زحل</span>
+        </button>
+        <button class="chip" type="button" data-world="galaxy" aria-pressed="false">
+          <i class="chip__dot dot--galaxy" aria-hidden="true"></i><span>کہکشاں</span>
+        </button>
+      </nav>
+    </footer>
+
+    <div id="fallback" class="fallback" hidden>
+      <div class="fallback__orb" aria-hidden="true"></div>
+      <h2 class="fallback__title">تھری ڈی گرافکس دستیاب نہیں</h2>
+      <p class="fallback__text">
+        اس سائٹ کے لیے WebGL درکار ہے۔ کروم کو اپ ڈیٹ کریں، ہارڈویئر ایکسلریشن آن کریں،
+        یا اس صفحے کو کسی اور براؤزر میں کھولیں۔
+      </p>
+    </div>
+
+    <noscript>
+      <div class="fallback" style="display: grid">
+        <div class="fallback__orb" aria-hidden="true"></div>
+        <h2 class="fallback__title">جاوا اسکرپٹ درکار ہے</h2>
+        <p class="fallback__text">کائنات کی سیر کے لیے براہِ کرم جاوا اسکرپٹ آن کریں۔</p>
+      </div>
+    </noscript>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
